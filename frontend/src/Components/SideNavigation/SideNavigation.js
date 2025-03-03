@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react"; // ✅ Import useState
+import { useLocation } from "react-router-dom";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -10,37 +11,42 @@ import FolderOpenOutlinedIcon from "@mui/icons-material/FolderOpenOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import Box from "@mui/material/Box";
-// import Button from "@mui/material/Button";
 import NightsStayIcon from "@mui/icons-material/NightsStay";
 import Modal from "@mui/material/Modal";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import { ThemeState } from "../../Context/UseContext";
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
 function SideNavigation() {
-  const [open, setOpen] = React.useState(false);
+  const location = useLocation();
+  const [open, setOpen] = useState(false); // ✅ useState moved before the if condition
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
   const {
     state: { theme },
     dispatch,
   } = ThemeState();
 
   const toggleTheme = () => {
-    const action = { type: "TOGGLE_THEME" };
-    dispatch(action);
+    dispatch({ type: "TOGGLE_THEME" });
   };
-
+  // modif Srihan pour enlever les chemins à gauche
+  const hiddenSidebarPaths = ["/login", "/validation"];
+  if (hiddenSidebarPaths.includes(location.pathname)) {
+    return null;
+  }
+  // Define the style object here (before return)
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    boxShadow: 24,
+    p: 4,
+  };
   return (
     <div className="w-300px min-h-100vh flex flex-col justify-between">
       <div
