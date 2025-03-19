@@ -6,6 +6,7 @@ import SideNavigation from "./Components/SideNavigation/SideNavigation.js";
 import Connexion from "./Pages/Login/Connexion.js";
 import Demandes from "./Pages/Demandes/Demandes.js";
 import Admin from "./Pages/Admin/Admin.js"; // ✅ Import Admin
+import ModoPage from "./Pages/modo/modo.js";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/login" element={<Connexion />} />
           <Route path="/demandes" element={<Demandes />} />
           <Route path="/admin" element={<Admin />} /> {/* ✅ Admin Page */}
+          <Route path="/modo" element={<ModoPage/>} />
         </Routes>
       </div>
     </div>
